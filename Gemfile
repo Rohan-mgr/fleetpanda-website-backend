@@ -47,3 +47,4 @@ end
 
 gem 'dotenv', '~> 2.1', '>= 2.1.1'
 gem 'rack-cors', '~> 1.1', '>= 1.1.1'
+gem "devise", "~> 4.9"

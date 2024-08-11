@@ -1,0 +1,31 @@
+class BlogsController < ApplicationController
+  def index
+    blogs = Blog.order('created_at DESC')
+    render json: blogs
+  end
+
+  def show
+    blog = Blog.find(params[:id])
+    render json: {blog: blog, message: "Blog fetched successfully"}, status: :ok
+  end
+
+  def create
+    blog = Blog.create(premitted_blog_params)
+
+    if blog.save
+      render json: {blog: blog, message: "Blog created successfully"}, status: :ok
+    else
+      render json: {message: "Blog creation failed"}, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    blog = Blog.find(params[:id])
+    blog.destroy
+    render json: {message: "Blog deleted successfully"}, status: :ok
+  end
+
+  private def premitted_blog_params 
+    params.require(:blog).permit(:title, :content, :status)
+  end
+end
