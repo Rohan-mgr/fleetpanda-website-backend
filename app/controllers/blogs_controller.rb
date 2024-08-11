@@ -1,6 +1,8 @@
 class BlogsController < ApplicationController
   def index
-    blogs = Blog.order('created_at DESC')
+    organization = Organization.find(params[:organization_id])
+    blogs = organization.blogs
+    # blogs = Blog.order('created_at DESC')
     render json: blogs
   end
 
@@ -26,6 +28,6 @@ class BlogsController < ApplicationController
   end
 
   private def premitted_blog_params 
-    params.require(:blog).permit(:title, :content, :status)
+    params.require(:blog).permit(:title, :content, :status, :organization_id)
   end
 end

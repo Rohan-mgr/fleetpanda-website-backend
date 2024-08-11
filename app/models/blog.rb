@@ -4,4 +4,6 @@ class Blog < ApplicationRecord
     hidden: "hidden", 
     archived: "archived"
   }, default: "published"
+
+  belongs_to :organization
 end
