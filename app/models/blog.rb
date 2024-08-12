@@ -6,4 +6,5 @@ class Blog < ApplicationRecord
   }, default: "published"
 
   belongs_to :organization
+  belongs_to :user
 end

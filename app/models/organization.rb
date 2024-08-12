@@ -1,6 +1,9 @@
 class Organization < ApplicationRecord
-  has_many :members
-  has_many :users, through: :members
+  has_many :memberships
+  has_many :users, through: :memberships
 
-  has_many :blogs
+  #making alias for user class
+  # has_many :members, through: :memberships, class_name: "User", source: :user
+
+  has_many :blogs 
 end

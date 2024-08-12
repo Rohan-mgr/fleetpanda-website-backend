@@ -27,7 +27,9 @@ class BlogsController < ApplicationController
     render json: {message: "Blog deleted successfully"}, status: :ok
   end
 
-  private def premitted_blog_params 
-    params.require(:blog).permit(:title, :content, :status, :organization_id)
+  private 
+  
+  def premitted_blog_params 
+    params.require(:blog).permit(:title, :content, :status, :organization_id, :user_id)
   end
 end
