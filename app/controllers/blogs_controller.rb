@@ -21,6 +21,16 @@ class BlogsController < ApplicationController
     end
   end
 
+  def update
+    # debugger;
+    blog = Blog.find(params[:id])
+    if blog.update(premitted_blog_params)
+      render json: {message: "Blog updated successfully"}, status: :ok
+    else
+      render json: {message: "Failed to updated blog"}, status: :internal_server_error
+    end
+  end
+
   def destroy
     blog = Blog.find(params[:id])
     blog.destroy
