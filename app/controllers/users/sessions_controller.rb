@@ -1,4 +1,5 @@
 class Users::SessionsController < Devise::SessionsController
+  respond_to :json
   def new
     super
   end
@@ -17,6 +18,7 @@ class Users::SessionsController < Devise::SessionsController
     end
 
     if user.valid_password?(params[:password])
+      session[:user_id] = user.id
       token = Digest::SHA1.hexdigest([Time.now, rand].join)
       render json: { token: token,  message: "Login successful", loggedUser: user, organization: org }, status: :ok
     else

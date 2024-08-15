@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  address: MyString
+  country: MyString
+  age: 1
+  contact: 1
+  dob: 2024-08-15 06:05:42
+
+two:
+  address: MyString
+  country: MyString
+  age: 1
+  contact: 1
+  dob: 2024-08-15 06:05:42

@@ -12,5 +12,16 @@ Rails.application.routes.draw do
   resources :blogs, only: [:index, :create, :show, :update, :destroy ] do
     resources :comments, only: [:index, :create, :update, :destroy]
   end
-  resources :organizations, only: [:index]
+  
+  resources :users do 
+    member {get 'info'}
+    
+    post 'profiles', to: "profiles#create"
+    put 'profiles', to: "profiles#update"
+    
+    resources :comments, only: [:index, :create, :update, :destroy]
+  end
+  resources :organizations, only: [:index, :fetch_users] do
+    resources :users, only: [:index] 
+  end
 end

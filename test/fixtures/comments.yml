@@ -3,9 +3,11 @@
 one:
   commenter: MyString
   body: MyText
-  blog: one
+  commentable: one
+  commentable_type: Commentable
 
 two:
   commenter: MyString
   body: MyText
-  blog: two
+  commentable: two
+  commentable_type: Commentable

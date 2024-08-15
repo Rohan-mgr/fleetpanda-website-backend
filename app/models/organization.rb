@@ -5,5 +5,5 @@ class Organization < ApplicationRecord
   #making alias for user class
   # has_many :members, through: :memberships, class_name: "User", source: :user
 
-  has_many :blogs 
+  has_many :blogs
 end

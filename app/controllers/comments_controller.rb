@@ -1,13 +1,22 @@
 class CommentsController < ApplicationController
   def index
-    blog = Blog.find(params[:blog_id])
-    comments = blog.comments
-    render json: {comments: comments,message: "comments fetched successfulyy"}, status: :ok
+    comment_service = ::Comments::CommentService.new(params).execute
+
+    if comment_service.success?
+      render json: {comments: comment_service.comments, message: "comments fetched successfulyy"}, status: :ok
+    else
+      render json: {message: comment_service.errors}, status: :unprocessable_entity
+    end
   end
 
-  private
+  def create
+    comment_service = ::Comments::CommentService.new(params).execute_create_comment
 
-  def comments_params 
-    params.require(:comment).permit(:commenter, :body)
+    if comment_service.success? 
+      render json: {message: "Comment posted successfully"}, status: :ok
+    else 
+      render json: {message: comment_service.errors}, status: :unprocessable_entity
+    end
   end
+
 end
