@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   
   resources :users do 
     member {get 'info'}
+    member {post 'upload_profile'}
     
     post 'profiles', to: "profiles#create"
     put 'profiles', to: "profiles#update"
