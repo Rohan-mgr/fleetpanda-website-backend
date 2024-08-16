@@ -1,5 +1,7 @@
+
 module Comments
   class CommentService
+
     attr_reader :params
     attr_accessor :success, :errors
 
@@ -36,14 +38,15 @@ module Comments
     def get_comments
       ActiveRecord::Base.transaction do
         comments = if params[:blog_id]
-                     Blog.find(params[:blog_id]).comments
+                     Blog.find(params[:blog_id]).comments.reverse()
                    else
-                     User.find(params[:user_id]).comments
+                     User.find(params[:user_id]).comments.reverse()
                    end
 
         
         @comments = comments.map do |comment| 
-          commenter = User.find(comment.created_by)
+          user = User.find(comment.created_by)
+          commenter = user.as_json.merge(avatar: user.avatar.attached? ?  Rails.application.routes.url_helpers.rails_representation_url(user.avatar, only_path: true) : nil)
           comment.as_json.merge(commenter: commenter)
         end
 
@@ -81,7 +84,7 @@ module Comments
     end
 
     def comments_params 
-    params.require(:comment).permit(:commenter, :body)
+    params.require(:comment).permit(:body)
     end
 
   end
