@@ -7,3 +7,7 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+["Tesla", "Google", "Microsoft", "Space X"].each do |orgName|
+#     MovieGenre.find_or_create_by!(name: genre_name)
+    Organization.create(name:orgName )
+  end
