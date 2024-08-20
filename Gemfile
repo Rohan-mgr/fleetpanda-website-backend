@@ -48,3 +48,8 @@ end
 gem 'dotenv', '~> 2.1', '>= 2.1.1'
 gem 'rack-cors', '~> 1.1', '>= 1.1.1'
 gem "devise", "~> 4.9"
+gem 'graphql', '~> 2.3', '>= 2.3.14'
+
+gem "graphiql-rails", "~> 1.10"
+
+gem "sprockets-rails", "~> 3.5"
