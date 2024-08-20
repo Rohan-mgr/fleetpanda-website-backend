@@ -1,7 +1,7 @@
 module Resolvers
   module Blogs
-    class BlogResolver < BaseResolver
-      type [Types::Blogs::BlogType], null: false
+    class GetBlogs < BaseResolver
+      type [Types::Blogs::BlogType], null: true
       argument :organization_id, ID, as: :org_id, required: true
 
       def resolve(org_id:)

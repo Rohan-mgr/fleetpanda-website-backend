@@ -21,7 +21,9 @@ module Types
     # Add root-level fields here.
     # They will be entry points for queries on your schema.
 
-    field :blogs, description:"Fetch all blogs of specific organization", resolver: Resolvers::Blogs::BlogResolver
+    field :blogs, description:"Fetch all blogs of specific organization", resolver: Resolvers::Blogs::GetBlogs
+    field :blogDetails, description: "Fetch the details of blog", resolver: Resolvers::Blogs::GetBlogDetails
+    field :blogComments, description: "Fetch the comments", resolver: Resolvers::Comments::GetComments
 
   end
 end

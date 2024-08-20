@@ -1,18 +1,14 @@
 module Mutations
   module Blogs
     class CreateBlog < BaseMutation
-      argument :status, Types::Enums::BlogStatusEnum, required: true
-      argument :title, String, required: true
-      argument :content, String, required: true
-      argument :user_id, ID, required: true
-      argument :organization_id, ID, required: true
+      argument :blog_info, Types::InputObjects::BlogInputType, required: true
 
       field :blog, Types::Blogs::BlogType, null: true
       field :errors, [String], null: true
 
-      def resolve(status:, title:, content:, user_id:, organization_id:)
+      def resolve(blog_info: {})
         begin
-          blog = Blog.create!(title: title, status: status, content: content, user_id: user_id, organization_id: organization_id)
+          blog = Blog.create!(title: blog_info.title, status: blog_info.status, content: blog_info.content, user_id: blog_info.user_id, organization_id: blog_info.organization_id)
           {
             blog: blog, 
             errors: []
