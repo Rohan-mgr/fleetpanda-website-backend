@@ -24,6 +24,7 @@ module Types
     field :blogs, description:"Fetch all blogs of specific organization", resolver: Resolvers::Blogs::GetBlogs
     field :blogDetails, description: "Fetch the details of blog", resolver: Resolvers::Blogs::GetBlogDetails
     field :blogComments, description: "Fetch the comments", resolver: Resolvers::Comments::GetComments
+    field :session, description: "Resolver for user login", resolver: Resolvers::Users::UserLogin
 
   end
 end

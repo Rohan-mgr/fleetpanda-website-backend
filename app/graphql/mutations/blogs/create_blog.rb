@@ -8,8 +8,8 @@ module Mutations
 
       def resolve(blog_info: {})
         begin
-          blog = Blog.create!(title: blog_info.title, status: blog_info.status, content: blog_info.content, user_id: blog_info.user_id, organization_id: blog_info.organization_id)
-          {
+          blog = Blog.create!(blog_info.to_h)
+          { 
             blog: blog, 
             errors: []
           }

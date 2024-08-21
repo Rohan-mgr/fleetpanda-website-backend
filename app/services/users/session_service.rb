@@ -31,7 +31,7 @@ module Users
       ActiveRecord::Base.transaction do 
         org = Organization.find_by(id: params[:organization_id])
         @errors << "Organization not found for this user" if org.nil?
-        user = org.users.find_by(email: params[:email])
+        user = org.users.find_by!(email: params[:email])
         @errors << "User not found in this organization" if user.nil?
 
         if user.valid_password?(params[:password])
@@ -52,7 +52,7 @@ module Users
     end
 
     def def login_params 
-      params.require(:session).permit(:email, :password, :organization_id)
+       ActionController::Parameters.new(params).permit(:email, :password, :organization_id)
     end
   end
 end

@@ -29,6 +29,10 @@ module Comments
       @errors.join(", ")
     end
 
+    def comment
+      @comment || nil
+    end
+
     def comments 
       @comments || []
     end
@@ -67,8 +71,8 @@ module Comments
                         User.find(params[:user_id])
                       end
 
-        comment = Comment.new(comments_params.merge({created_by: params[:commenterId],commentable: commentable}))
-        comment.save!
+        @comment = Comment.new(comments_params.merge({created_by: params[:comment_info][:created_by],commentable: commentable}))
+        @comment.save!
 
         @success = true
         @error = []
@@ -84,8 +88,8 @@ module Comments
     end
 
     def comments_params 
-      params.require(:comment).permit(:body)
-    end
+      ActionController::Parameters.new(params[:comment_info]).permit(:body)
+    end   
 
   end
 end
