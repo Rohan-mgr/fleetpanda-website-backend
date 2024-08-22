@@ -51,7 +51,7 @@ module Users
         @errors = err.message
     end
 
-    def def login_params 
+    def login_params 
        ActionController::Parameters.new(params).permit(:email, :password, :organization_id)
     end
   end
