@@ -6,15 +6,16 @@ module Resolvers
       def resolve
         begin
           orgs = Organization.order('created_at DESC')
-
-          {
-            oraganizations: orgs,
-            error: nill
-          }
+          if !orgs.empty?
+            {
+              organizations: orgs,
+              error: nil
+            }
+          end
         end
       rescue StandardError => err
         {
-          organizations: orgs,
+          organizations: [],
           error: err.message
         }
       end
