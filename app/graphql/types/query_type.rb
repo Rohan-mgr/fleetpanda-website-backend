@@ -26,6 +26,6 @@ module Types
     field :blogComments, description: "Fetch the comments", resolver: Resolvers::Comments::GetComments
     field :session, description: "Resolver for user login", resolver: Resolvers::Users::UserLogin
     field :organization_users, description: "Resolver for fetching organization users", resolver: Resolvers::Users::FetchUsers
-
+    field :get_organizations, description: "Resolver for fetching organizations", resolver: Resolvers::Organizations::GetOrganizations
   end
 end
