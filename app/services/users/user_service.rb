@@ -1,6 +1,7 @@
 module Users
   class UserService
-    attr_accessor :success, :errors
+    attr_reader :params
+    attr_accessor :success, :errors, :users
 
     def initialize(params = {})
       @params = params
@@ -8,7 +9,12 @@ module Users
       @errors = []
     end
 
-    def success
+    def execute_fetch_users
+      handle_users_fetch
+      self
+    end
+
+    def success?
       @success ||= @errors.empty?
     end
 
@@ -18,16 +24,23 @@ module Users
 
     private
 
-    def handle_profile_upload
+    def handle_users_fetch
       begin
-        user = User.find(params[:id])
-        if user.avatar.attached(profile_params)
-          @success = true
-          @errors = []
+        ActiveRecord::Base.transaction do 
+          organization = Organization.find(params[:organization_id])
+          if organization.present?
+            @users = organization.users
+            @users = @users.map do |user|
+              user.as_json.merge(avatar: user.avatar.attached? ? Rails.application.routes.url_helpers.rails_blob_url(user.avatar, only_path: true): nil)
+            end
+            
+            @success = true
+            @errors = []
+          end
         end
       end
       
-      rescue StandardError => err
+      rescue ActiveRecord::Rollback => err
         @success = false
         @errors << err.message
     end

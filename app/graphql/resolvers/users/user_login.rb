@@ -1,13 +1,13 @@
 module Resolvers
   module Users
     class UserLogin < BaseResolver
-      type Types::Users::UserResponseType, null: true
+      type Types::Users::SessionResponseType, null: true
       argument :login_info, Types::InputObjects::UserLoginInputType, required: true
 
 
       def resolve(login_info: {}) 
         begin
-          session_service = session_service = ::Users::SessionService.new(login_info.to_h).execute
+          session_service = ::Users::SessionService.new(login_info.to_h).execute
 
           if session_service.success?
             {

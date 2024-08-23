@@ -1,6 +1,6 @@
 module Types
   module Users
-    class UserResponseType < BaseObject
+    class SessionResponseType < BaseObject
       field :loggedUser, Types::Users::UserType, null: false
       field :token, String, null: false
       field :organization, Types::Organizations::OrganizationType, null: false
