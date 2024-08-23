@@ -27,5 +27,6 @@ module Types
     field :session, description: "Resolver for user login", resolver: Resolvers::Users::UserLogin
     field :organization_users, description: "Resolver for fetching organization users", resolver: Resolvers::Users::FetchUsers
     field :get_organizations, description: "Resolver for fetching organizations", resolver: Resolvers::Organizations::GetOrganizations
+    field :user_details, description: "Resolver for fetching user details", resolver: Resolvers::Users::GetUserDetails
   end
 end

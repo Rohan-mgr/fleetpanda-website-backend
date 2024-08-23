@@ -22,7 +22,6 @@ class BlogsController < ApplicationController
   end
 
   def update
-    # debugger;
     blog = Blog.find(params[:id])
     if blog.update(premitted_blog_params)
       render json: {message: "Blog updated successfully"}, status: :ok
