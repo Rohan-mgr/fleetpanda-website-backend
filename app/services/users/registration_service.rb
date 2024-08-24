@@ -22,15 +22,19 @@ module Users
       @errors.join(", ")
     end
 
+    def user
+      @user || nil
+    end
+
     private 
 
 
     def handle_user_registration
       ActiveRecord::Base.transaction do
-        user = User.new(sign_up_params)
+        @user = User.new(sign_up_params)
         if organization.present?
-          user.save!
-          membership(user.id, organization.id)
+          @user.save!
+          membership(@user.id, organization.id)
           # Membership.create!(user_id: user.id, organization_id: organization.id)
         end
         @success = true
@@ -43,7 +47,7 @@ module Users
     end
 
     def organization 
-      organization ||= Organization.find_by(id: params[:organizationId]);
+      organization ||= Organization.find_by(id: params[:organization_id]);
     end
 
     def membership(user_id, organization_id)
@@ -51,13 +55,7 @@ module Users
     end
 
     def sign_up_params
-      transformed_params = {
-        fullname: params[:fullName], 
-        email: params[:email], 
-        password: params[:password],
-        password_confirmation: params[:confirmPassword]
-      }
-      ActionController::Parameters.new(transformed_params).permit(:fullname, :email, :password, :password_confirmation)
+      ActionController::Parameters.new(params).permit(:fullname, :email, :password, :password_confirmation)
     end
   end
 end

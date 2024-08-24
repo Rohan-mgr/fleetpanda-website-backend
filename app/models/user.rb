@@ -1,11 +1,6 @@
 class User < ApplicationRecord
-  #   _validators.delete(:email)
-  # _validate_callbacks.each do |callback|
-  #   if callback.filter.respond_to?(:attributes) && callback.filter.attributes.include?(:email)
-  #     _validate_callbacks.delete(callback)
-  #   end
-  # end
-  # validates :email, presence: true, uniqueness: { scope: :organization }
+  include Attachable
+  before_save :nullify_avatar_if_absent
 
   has_many :memberships
   has_many :organizations, through: :memberships
@@ -20,5 +15,12 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+
+
+  private
+
+  def nullify_avatar_if_absent
+    self.avatar.purge_later unless avatar.attached?
+  end
 
 end

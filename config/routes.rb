@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+
+  if Rails.env.development?
+  mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
+  end
+  post "/graphql", to: "graphql#execute"
+
   devise_for :users, controllers: { registrations: "users/registrations", sessions: "users/sessions"}
   # get 'organizations/index'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -22,6 +28,7 @@ Rails.application.routes.draw do
     
     resources :comments, only: [:index, :create, :update, :destroy]
   end
+
   resources :organizations, only: [:index, :fetch_users] do
     resources :users, only: [:index] 
   end
